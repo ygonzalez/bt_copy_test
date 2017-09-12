@@ -1,0 +1,62 @@
+<% @title = "Listing consultants" %>
+
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <%= will_paginate @consultants %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Consultant Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @consultants.each do |consultant| %>
+        <tr>
+          <td><i class="icon-plus-sign"> </i><%= consultant.name %>
+           <div style="display:none;"> 
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Plan Name</th>
+              <th>Market Value</th>
+            </tr>
+          </thead>
+        <tbody>
+          <% total = 0 %>
+          <% consultant.plans.order("name asc").each do |pm| %>
+          <tr>
+            <td>
+              <%= pm.name %>
+            </td>
+            <td>
+              <%= number_to_currency(pm.total) %>
+            <td>
+              <% total = total + pm.total %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <strong>Total:</strong>
+          </td>
+          <td>
+            <strong><%= number_to_currency(total) %></strong>
+          </td>
+      </tbody>
+    </table>
+        </div></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), consultant_path(consultant, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+     <%= will_paginate @consultants %>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+
+

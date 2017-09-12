@@ -1,0 +1,68 @@
+<% @title = "Listing trades" %>
+
+
+<%= form_tag(trades_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Trades", class: 'input-large search-query' %>
+<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+   <i class="icon-search"></i> Search 
+<% end %>
+<% end %>
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <%= will_paginate @trades %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Trade Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @trades.each do |trade| %>
+        <tr>
+          <td><i class="icon-plus-sign"> </i><%= trade.name %>
+           <div style="display:none;"> 
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Plan Name</th>
+              <th>Market Value</th>
+            </tr>
+          </thead>
+        <tbody>
+          <% total = 0 %>
+          <% trade.plans.order("name asc").each do |pm| %>
+          <tr>
+            <td>
+              <%= pm.name %>
+            </td>
+            <td>
+              <%= number_to_currency(pm.total) %>
+            <td>
+              <% total = total + pm.total %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <strong>Total:</strong>
+          </td>
+          <td>
+            <strong><%= number_to_currency(total) %></strong>
+          </td>
+      </tbody>
+    </table>
+        </div></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), trade_path(trade, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+     <%= will_paginate @trades %>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+

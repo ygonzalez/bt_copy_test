@@ -1,0 +1,85 @@
+<% @title = "Listing Securities" %>
+
+<%= form_tag(companies_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Securities", class: 'input-large search-query' %>
+<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+   <i class="icon-search"></i> Search 
+<% end %>
+<% end %>
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <%= will_paginate @companies %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>CUSIP/SEDOL</th>
+          <th>Ticker</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @companies.order("name asc").each do |company| %>
+        <tr>
+          <td><i class="icon-plus-sign"> </i><%= company.name %> 
+
+        <div style="display:none;"> 
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Plan Name</th>
+              <th>Manager Name</th>
+              <th>Shares</th>
+              <th>Market Value</th>
+            </tr>
+          </thead> 
+          <tbody>
+            <% total = 0 %>
+            <% company.securities.order("name asc").each do |spm| %>
+            <tr>
+              <td>
+              <%= spm.account.plan.name %>
+            </td>
+            <td>
+              <%= spm.account.manager.man_name%>
+            </td>
+            <td>
+              <%= spm.shares %>
+            <td>
+             <%= number_to_currency(spm.market_value) %>
+             <% if spm.market_value? %>
+             <% total = total + spm.market_value %>
+             <% end %>
+            </td>
+          </tr>
+          <% end %>
+          <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+              <strong>Total:</strong>
+            </td>
+            <td>
+              <strong><%= number_to_currency(total) %></strong>
+            </td>
+        </tbody>
+      </table>
+    </div></td>
+        <td><%= company.cusip %></td>
+        <td><%= company.ticker %></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), company_path(company, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+          </td>
+        </tr>
+
+      <% end %>
+      </tbody>
+
+    </table>
+    <%= will_paginate @companies %>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->

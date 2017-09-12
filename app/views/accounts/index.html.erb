@@ -1,0 +1,42 @@
+<% @title = "Listing accounts" %>
+
+
+
+<% content_for :description do %>
+  <p>Edit this template in <code>app/views/Accounts/index.html.erb</code>.</p>
+<% end %>
+
+<% content_for :actions do %>
+  <%= link_to new_account_path, class: 'btn btn-primary btn-large pull-right' do %>
+    <%= icon_tag "plus" %> Add Account
+  <% end %>
+<% end %>
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @accounts.each do |account| %>
+        <tr>
+          <td><%= account.name %></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), account, rel: 'tooltip', title: 'Show' %>
+            <%= link_to icon_tag("pencil"), edit_account_path(account), rel: 'tooltip', title: 'Edit' %>
+            <%= link_to icon_tag("trash"), account, rel: 'tooltip', title: 'Delete',
+                        data: { confirm: 'Are you sure?' }, method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+
+<%# Remove the trailing if condition if you're using pagination. %>
+<%= will_paginate @accounts if @accounts.respond_to?(:total_pages) %>

@@ -1,0 +1,16 @@
+<% @title = "Showing consultant" %>
+
+<div class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Name</label>
+    <div class="controls">
+      <span class="uneditable-input span6"><%= @consultant.name %></span>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= link_to icon_tag("pencil") + ' Edit', edit_consultant_path(@consultant), class: 'btn btn-primary' %>
+    <%= link_to 'Back', consultants_path, class: 'btn' %>
+  </div>
+</div>
+

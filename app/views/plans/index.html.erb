@@ -1,0 +1,83 @@
+<% @title = "Building Trades Plans" %>
+
+<%= form_tag(plans_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Plans", class: 'input-large search-query' %>
+<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+   <i class="icon-search"></i> Search 
+<% end %>
+<% end %>
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Plan Name</th>
+          <th>Last Update</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @plans.each do |plan| %>
+        <tr>
+          <td><i class="icon-plus-sign"> </i><%= plan.name %>
+        <table style="display:none;" class="table">
+          <thead>
+            <tr>
+              <th>Manager</th>
+              <th>Committed ($millions)</th>
+              <th>Asset Class</th>
+              <th>Market Value</th>
+            </tr>
+          </thead>
+        <tbody>
+          <% total = 0 %>
+          <%plan.accounts.order("name asc").each do |pm| %>
+          <tr>
+            <td>
+            <%= pm.name %>
+          </td>
+          <td>
+            <% unless pm.committed.eql? "NULL" %>
+              <%= pm.committed %>
+            <% end %>
+          </td>
+          <td>
+            <%= pm.asset_class %>
+          </td>
+          <td>
+            <%= number_to_currency(pm.market_value)%>
+          </td>
+        </tr>
+        <% end %>
+        <tr>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+            <strong>Total:</strong>
+          </td>
+          <td>
+            <strong><%= number_to_currency(plan.total) %></strong>
+
+          </td>
+
+      </tbody>
+    </table>
+          <td>
+          
+          </td>
+            <td><%= plan.email %></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), plan_path(plan, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @plans %>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+

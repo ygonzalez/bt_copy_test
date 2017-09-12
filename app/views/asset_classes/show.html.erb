@@ -1,0 +1,16 @@
+<% @title = "Showing asset_class" %>
+
+<div class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Name</label>
+    <div class="controls">
+      <span class="uneditable-input span6"><%= @asset_class.name %></span>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= link_to icon_tag("pencil") + ' Edit', edit_asset_class_path(@asset_class), class: 'btn btn-primary' %>
+    <%= link_to 'Back', asset_classes_path, class: 'btn' %>
+  </div>
+</div>
+

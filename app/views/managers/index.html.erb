@@ -1,0 +1,83 @@
+<% @title = "Managers" %>
+
+<div style: 'text-align:left' class="btn-group">
+  <%= dropdown_button "Asset Class" do %>
+    <%= activatable_li_tag_with_link "All", managers_path %>
+    <% @asset_classes.each do |asset_class| %>
+      <%= activatable_li_tag_with_link "#{asset_class.name}", managers_path(asset_class_id: "#{asset_class.id}") %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= form_tag(managers_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Managers", class: 'input-large search-query' %>
+<%= button_tag(type: "submit", class: "btn btn-primary") do %>
+   <i class="icon-search"></i> Search 
+<% end %>
+<% end %>
+
+
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @managers.each do |manager| %>
+        <tr>
+          <td><i class="icon-plus-sign"> </i><%= manager.man_name %>
+          <table style="display:none;" class="table">
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Asset Class</th>
+                <th>Market Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% total = 0 %>
+              <% manager.accounts.each do |ma| %>
+              <tr>
+              <td>
+                <%= ma.plan.name %>
+              </td>
+              <td>
+                <%= ma.asset_class %>
+              </td>
+              <td>
+                <%= number_to_currency(ma.market_value)%>
+                <% if ma.market_value? %>
+                  <% total = total + ma.market_value %>
+                <% end %>
+              </td>
+            </tr>
+              <% end %>
+            <tr>
+              <td>
+              </td>
+              <td>
+                <strong>Total:</strong>
+              </td>
+              <td>
+                <strong><%= number_to_currency(total) %></strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye-open"), manager_path(manager, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @managers %>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+
