@@ -1,6 +1,6 @@
 class ConsultantsController < ApplicationController
   before_action :set_consultant, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /consultants
   # GET /consultants.json
   def index

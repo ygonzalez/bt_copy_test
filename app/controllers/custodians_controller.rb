@@ -1,6 +1,6 @@
 class CustodiansController < ApplicationController
   before_action :set_custodian, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /custodians
   # GET /custodians.json
  def index

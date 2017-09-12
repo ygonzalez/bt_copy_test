@@ -1,0 +1,29 @@
+<% @title = "Sign In" %>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  
+<div class="sheet form-sheet">
+    <div class="sheet-inner">
+<div class="form-inputs">
+
+	<%= f.control_group :email do |f| %>
+      <%= f.label :email, class: 'control-label' %>
+      <div class="controls">
+        <%= f.email_field :email, :autofocus => true %>
+      </div>
+    <% end %>
+
+  
+
+ <%= f.control_group :password do |f| %>
+      <%= f.label :password, class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password %>
+      </div>
+    <% end %>
+</div>
+</div>
+</div>
+
+  <div class="form-actions"><%= f.submit "Sign in", class: 'btn btn-primary' %></div>
+<% end %>
