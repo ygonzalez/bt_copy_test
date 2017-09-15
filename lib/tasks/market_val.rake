@@ -1,5 +1,5 @@
 task :add_market_value => [:environment] do
-	plan_id = 5
+	plan_id = 16
 	@accounts = Account.where(plan_id: plan_id)
 	@accounts.each do |account|
 		puts "#{account.name}"

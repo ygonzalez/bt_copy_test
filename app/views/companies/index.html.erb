@@ -1,4 +1,4 @@
-<% @title = "Listing Securities" %>
+<% @title = "Securities" %>
 
 <%= form_tag(companies_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Securities", class: 'input-large search-query' %>
