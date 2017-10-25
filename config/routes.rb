@@ -13,7 +13,8 @@ BuildingTrades::Application.routes.draw do
 
 
   devise_scope :user do
-    root to: "trades#index" 
+    #root to: 'trades#index'
+    root to: 'passthrough#index' 
   end
 
   unauthenticated do
@@ -21,3 +22,5 @@ BuildingTrades::Application.routes.draw do
   end
 
 end
+
+

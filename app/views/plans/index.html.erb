@@ -1,4 +1,4 @@
-<% @title = "Building Trades Plans" %>
+<% @title = "Plans" %>
 
 <%= form_tag(plans_path, :method => "get", id: "search-form", style: 'text-align:right') do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Plans", class: 'input-large search-query' %>
@@ -56,6 +56,7 @@
           </td>
           <td>
           </td>
+        
           <td>
             <strong>Total:</strong>
           </td>

@@ -3,11 +3,28 @@ class PlansController < ApplicationController
   before_filter :authenticate_user!
   # GET /plans
   # GET /plans.json
+
+
   def index
-    if params[:search]
-      @plans = Plan.search(params[:search]).order("name ASC").paginate(page: params[:page], per_page: 10)
+
+    if current_user.has_role? :smw
+      if params[:search]
+        @plans = Plan.search(params[:search]).where("trade_id=2").order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @plans = Plan.where("trade_id=2").order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
+    elsif current_user.has_role? :iw
+      if params[:search]
+        @plans = Plan.search(params[:search]).where("trade_id=1").order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @plans = Plan.where("trade_id=1").order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
     else
-      @plans = Plan.order("name ASC").paginate(page: params[:page], per_page: 10)
+      if params[:search]
+        @plans = Plan.search(params[:search]).order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @plans = Plan.order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
     end
   end
 

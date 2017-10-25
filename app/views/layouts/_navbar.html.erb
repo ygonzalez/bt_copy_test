@@ -17,11 +17,13 @@
       <a class="brand" href="<%= plans_path %>"><strong><%= app_name %></strong></a>
 
       <!-- Everything you want hidden at 940px or less, place within here -->
-      <%# if user_signed_in? %>
+      <% if user_signed_in? %>
         <div class="nav-collapse">
-           <ul class="nav">
-          <%= activatable_li_tag_with_link 'Trades', trades_path %> 
-         </ul>
+          <% if current_user.has_role? :admin %>
+            <ul class="nav">
+              <%= activatable_li_tag_with_link 'Trades', trades_path %> 
+            </ul>
+          <% end %>
           <ul class="nav">
           <%= activatable_li_tag_with_link 'Plans', plans_path %> 
          </ul>
@@ -40,7 +42,7 @@
          
           <%= yield :navbar %>
         </div> <!-- /.nav-collapse -->
-        <%# end %>
+        <% end %>
     </div> <!-- /.container -->
   </div> <!-- /.navbar-inner -->
 </div> <!-- /.navbar -->

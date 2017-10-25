@@ -9,4 +9,6 @@ class Plan < ActiveRecord::Base
 	def total
 		total = self.accounts.sum(:market_value)
 	end
+
+
 end

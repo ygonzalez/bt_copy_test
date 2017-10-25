@@ -12,7 +12,8 @@ class Manager < ActiveRecord::Base
 	end
 
 	def self.asset_class_find(asset_class_id)
-			includes(:accounts).where('accounts.asset_class_id = ?', asset_class_id)
+		includes(:accounts).where('accounts.asset_class_id = ?', asset_class_id)
 	end
+
 end
 

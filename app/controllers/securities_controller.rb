@@ -1,6 +1,6 @@
 class SecuritiesController < ApplicationController
   before_action :set_security, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /securities
   # GET /securities.json
   def index

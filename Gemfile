@@ -38,6 +38,7 @@ gem 'dresssed-gimlet'
 gem 'devise'
 gem 'prawn'
 gem 'will_paginate'
+gem 'cancancan'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

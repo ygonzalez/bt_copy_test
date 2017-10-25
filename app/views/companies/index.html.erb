@@ -34,38 +34,100 @@
             </tr>
           </thead> 
           <tbody>
-            <% total = 0 %>
+            <% iw_total = 0 %>
+            <% smw_total = 0 %>
             <% company.securities.order("name asc").each do |spm| %>
-            <tr>
-              <td>
-              <%= spm.account.plan.name %>
-            </td>
-            <td>
-              <%= spm.account.manager.man_name%>
-            </td>
-            <td>
-              <%= spm.shares %>
-            <td>
-             <%= number_to_currency(spm.market_value) %>
-             <% if spm.market_value? %>
-             <% total = total + spm.market_value %>
-             <% end %>
-            </td>
-          </tr>
+            <% if spm.market_value? %>
+              <% if spm.account.plan.trade_id == 1 %>
+                <% iw_total = iw_total + spm.market_value %>
+              <% elsif spm.account.plan.trade_id == 2 %>
+                <% smw_total = smw_total + spm.market_value %>
+              <% end %>
+            <% end %>
+            <% if current_user.has_role? :iw %>
+              <% if spm.account.plan.trade_id == 1 %>
+                <tr>
+                  <td>
+                  <%= spm.account.plan.name %>
+                  </td>
+                  <td>
+                    <%= spm.account.manager.man_name%>
+                  </td>
+                  <td>
+                    <%= spm.shares %>
+                  <td>
+                   <%= number_to_currency(spm.market_value) %>
+                  </td>
+                </tr>
+              <% end %>
+            <% elsif current_user.has_role? :smw %>
+              <% if spm.account.plan.trade_id == 2 %>
+                <tr>
+                  <td>
+                  <%= spm.account.plan.name %>
+                  </td>
+                  <td>
+                    <%= spm.account.manager.man_name%>
+                  </td>
+                  <td>
+                    <%= spm.shares %>
+                  <td>
+                   <%= number_to_currency(spm.market_value) %>
+                  </td>
+                </tr>
+              <% end %>
+             <% else %>   
+              <tr>
+                  <td>
+                  <%= spm.account.plan.name %>
+                  </td>
+                  <td>
+                    <%= spm.account.manager.man_name%>
+                  </td>
+                  <td>
+                    <%= spm.shares %>
+                  <td>
+                   <%= number_to_currency(spm.market_value) %>
+                  </td>
+                </tr>
           <% end %>
           <tr>
+             <% end %>
+             <td>
+              </td>
+               <td>
+              </td>
             <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-              <strong>Total:</strong>
-            </td>
-            <td>
-              <strong><%= number_to_currency(total) %></strong>
-            </td>
+                <strong>SMW Total:</strong>
+              </td>
+              <td>
+                <strong><%= number_to_currency(smw_total) %></strong>
+              </td>
+            </tr>
+             <tr>
+               <td>
+              </td>
+              <td>
+              </td>
+              <td>
+                <strong>IW Total:</strong>
+              </td>
+              <td>
+                <strong><%= number_to_currency(iw_total) %></strong>
+              </td>
+            </tr>
+            <tr>
+               <td>
+              </td>
+              <td>
+              </td>
+              <td>
+                <strong>Total:</strong>
+              </td>
+              <td>
+                <strong><%= number_to_currency(smw_total + iw_total) %></strong>
+              </td>
+            </tr>
         </tbody>
       </table>
     </div></td>
@@ -75,7 +137,6 @@
             <%= link_to icon_tag("eye-open"), company_path(company, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
           </td>
         </tr>
-
       <% end %>
       </tbody>
 

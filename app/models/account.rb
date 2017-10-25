@@ -11,4 +11,5 @@ class Account < ActiveRecord::Base
 	def self.active
 		where(active: true).order("year desc")
 	end
+
 end
