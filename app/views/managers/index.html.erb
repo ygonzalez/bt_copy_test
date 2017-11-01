@@ -126,7 +126,9 @@
         </table>
         </div></td>
           <td class="actions">
-            <%= link_to icon_tag("eye-open"), manager_path(manager, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <% if current_user.has_role? :all %>
+              <%= link_to icon_tag("eye-open"), manager_path(manager, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <% end %>
           </td>
         </tr>
       <% end %>

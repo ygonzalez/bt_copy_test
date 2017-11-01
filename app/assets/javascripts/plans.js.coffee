@@ -5,6 +5,5 @@
 
 jQuery ->
   $("i").click ->
-  	event.preventDefault()
   	$(this).next().toggle("slide")
   	$(this).toggleClass "icon-minus-sign icon-plus-sign"

@@ -134,7 +134,9 @@
         <td><%= company.cusip %></td>
         <td><%= company.ticker %></td>
           <td class="actions">
-            <%= link_to icon_tag("eye-open"), company_path(company, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <% if current_user.has_role? :all %>
+              <%= link_to icon_tag("eye-open"), company_path(company, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+              <% end %> 
           </td>
         </tr>
       <% end %>

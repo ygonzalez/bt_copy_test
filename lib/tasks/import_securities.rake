@@ -1,7 +1,7 @@
 require 'csv'  
 
 task :import_securities => [:environment] do
-csv_text = File.read('lib/tasks/IWMS.csv')
+csv_text = File.read('lib/tasks/272.csv')
 csv = CSV.parse(csv_text, :headers => true)
 	csv.each do |row|
 		acctid = row[0]

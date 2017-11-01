@@ -72,7 +72,7 @@
           </td>
             <td><%= plan.email %></td>
           <td class="actions">
-            <%= link_to icon_tag("eye-open"), plan_path(plan, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <%= link_to icon_tag("eye-open"), plan_path(plan, format: "pdf"), rel: 'tooltip', title: 'Show', target: :_blank %>
           </td>
         </tr>
       <% end %>

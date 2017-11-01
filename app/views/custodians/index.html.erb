@@ -101,7 +101,9 @@
     </table>
         </div></td>
           <td class="actions">
-            <%= link_to icon_tag("eye-open"), custodian_path(custodian, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <% if current_user.has_role? :all %>
+              <%= link_to icon_tag("eye-open"), custodian_path(custodian, format: "pdf"), rel: 'tooltip', title: 'Show', target: "_blank" %>
+            <% end %>
           </td>
         </tr>
       <% end %>
