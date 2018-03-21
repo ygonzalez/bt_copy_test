@@ -4,10 +4,25 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    if params[:search]
-      @trades = Trade.search(params[:search]).order("name ASC").paginate(page: params[:page], per_page: 10)
+
+    if current_user.has_role? :smw
+      if params[:search]
+        @trades = Trade.search(params[:search]).where("id=2").order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @trades = Trade.where("id=2").order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
+    elsif current_user.has_role? :iw
+      if params[:search]
+        @trades = Trade.search(params[:search]).where("id=1").order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @trades = Trade.where("id=1").order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
     else
-      @trades = Trade.order("name ASC").paginate(page: params[:page], per_page: 10)
+      if params[:search]
+        @trades = Trade.search(params[:search]).order("name ASC").paginate(page: params[:page], per_page: 10)
+      else
+        @trades = Trade.order("name ASC").paginate(page: params[:page], per_page: 10)
+      end
     end
   end
 

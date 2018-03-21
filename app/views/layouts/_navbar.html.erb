@@ -19,11 +19,9 @@
       <!-- Everything you want hidden at 940px or less, place within here -->
       <% if user_signed_in? %>
         <div class="nav-collapse">
-          <% if current_user.has_role? :admin %>
             <ul class="nav">
               <%= activatable_li_tag_with_link 'Trades', trades_path %> 
             </ul>
-          <% end %>
           <ul class="nav">
           <%= activatable_li_tag_with_link 'Plans', plans_path %> 
          </ul>
