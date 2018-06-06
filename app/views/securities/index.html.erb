@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @securities.each do |security| %>
+      <% @securities.current.each do |security| %>
         <tr>
           <td><%= security.name %></td>
           <td class="actions">

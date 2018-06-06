@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928173408) do
+ActiveRecord::Schema.define(version: 20180606015031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20170928173408) do
     t.datetime "updated_at"
     t.integer  "shares"
     t.integer  "company_id"
+    t.boolean  "current",      default: true
   end
 
   create_table "trades", force: true do |t|

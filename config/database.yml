@@ -17,6 +17,8 @@ development:
   database: building_trades_development
   pool: 5
   host: localhost
+  username: yvettegonzalez
+  password: Colin2008
 
 
 # Warning: The database defined as "test" will be erased and

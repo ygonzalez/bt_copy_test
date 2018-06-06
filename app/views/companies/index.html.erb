@@ -36,7 +36,7 @@
           <tbody>
             <% iw_total = 0 %>
             <% smw_total = 0 %>
-            <% company.securities.order("name asc").each do |spm| %>
+            <% company.securities.current.order("name asc").each do |spm| %>
             <% if spm.market_value? %>
               <% if spm.account.plan.trade_id == 1 %>
                 <% iw_total = iw_total + spm.market_value %>
